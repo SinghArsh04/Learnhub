@@ -73,10 +73,13 @@ exports.sendOTP = async (req, res) => {
 exports.signup = async (req, res) => {
     try {
         // extract data 
+
         const { firstName, lastName, email, password, confirmPassword,
             accountType, contactNumber, otp } = req.body;
 
         // validation
+
+        console.log(req.body);
         if (!firstName || !lastName || !email || !password || !confirmPassword || !accountType || !otp) {
             return res.status(401).json({
                 success: false,
