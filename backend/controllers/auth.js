@@ -14,63 +14,83 @@ const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 // ================ SEND-OTP For Email Verification ================
 exports.sendOTP = async (req, res) => {
     try {
+    const { email } = req.body;
 
-        // fetch email from re.body 
-        const { email } = req.body;
+    // Just log and send a dummy OTP without saving or mailing
+    console.log(`Bypassing OTP for email: ${email}`);
 
-        // check user already exist ?
-        const checkUserPresent = await User.findOne({ email });
+    res.status(200).json({
+      success: true,
+      otp: "123456", // any dummy value
+      message: "OTP bypassed and accepted",
+    });
+  } catch (error) {
+    console.log("Error in sendOTP bypass: ", error);
+    res.status(500).json({
+      success: false,
+      message: "Error while bypassing OTP",
+      error: error.message,
+    });
+  }
+    // try {
 
-        // if exist then response
-        if (checkUserPresent) {
-            console.log('(when otp generate) User alreay registered')
-            return res.status(401).json({
-                success: false,
-                message: 'User is Already Registered'
-            })
-        }
+    //     // fetch email from re.body 
+    //     const { email } = req.body;
 
-        // generate Otp
-        const otp = optGenerator.generate(6, {
-            upperCaseAlphabets: false,
-            lowerCaseAlphabets: false,
-            specialChars: false
-        })
-        // console.log('Your otp - ', otp);
+    //     // check user already exist ?
+    //     const checkUserPresent = await User.findOne({ email });
 
-        const name = email.split('@')[0].split('.').map(part => part.replace(/\d+/g, '')).join(' ');
-        console.log(name);
+    //     // if exist then response
+    //     if (checkUserPresent) {
+    //         console.log('(when otp generate) User alreay registered')
+    //         return res.status(401).json({
+    //             success: false,
+    //             message: 'User is Already Registered'
+    //         })
+    //     }
 
-        // send otp in mail
-        await mailSender(email, 'OTP Verification Email', otpTemplate(otp, name));
+    //     // generate Otp
+    //     const otp = optGenerator.generate(6, {
+    //         upperCaseAlphabets: false,
+    //         lowerCaseAlphabets: false,
+    //         specialChars: false
+    //     })
+    //     // console.log('Your otp - ', otp);
 
-        // create an entry for otp in DB
-        const otpBody = await OTP.create({ email, otp });
-        // console.log('otpBody - ', otpBody);
+    //     const name = email.split('@')[0].split('.').map(part => part.replace(/\d+/g, '')).join(' ');
+    //     console.log(name);
+
+    //     // send otp in mail
+    //     await mailSender(email, 'OTP Verification Email', otpTemplate(otp, name));
+
+    //     // create an entry for otp in DB
+    //     const otpBody = await OTP.create({ email, otp });
+    //     // console.log('otpBody - ', otpBody);
 
 
 
-        // return response successfully
-        res.status(200).json({
-            success: true,
-            otp,
-            message: 'Otp sent successfully'
-        });
-    }
+    //     // return response successfully
+    //     res.status(200).json({
+    //         success: true,
+    //         otp,
+    //         message: 'Otp sent successfully'
+    //     });
+    // }
 
-    catch (error) {
-        console.log('Error while generating Otp - ', error);
-        res.status(200).json({
-            success: false,
-            message: 'Error while generating Otp',
-            error: error.mesage
-        });
-    }
+    // catch (error) {
+    //     console.log('Error while generating Otp - ', error);
+    //     res.status(200).json({
+    //         success: false,
+    //         message: 'Error while generating Otp',
+    //         error: error.mesage
+    //     });
+    // }
 }
 
 
 // ================ SIGNUP ================
 exports.signup = async (req, res) => {
+    console.log("hello");
     try {
         // extract data 
 
@@ -107,7 +127,7 @@ exports.signup = async (req, res) => {
         }
 
         // find most recent otp stored for user in DB
-        const recentOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
+        // const recentOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
         // console.log('recentOtp ', recentOtp)
 
         // .sort({ createdAt: -1 }): 
@@ -118,18 +138,18 @@ exports.signup = async (req, res) => {
 
 
         // if otp not found
-        if (!recentOtp || recentOtp.length == 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'Otp not found in DB, please try again'
-            });
-        } else if (otp !== recentOtp.otp) {
-            // otp invalid
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid Otp'
-            })
-        }
+        // if (!recentOtp || recentOtp.length == 0) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: 'Otp not found in DB, please try again'
+        //     });
+        // } else if (otp !== recentOtp.otp) {
+        //     // otp invalid
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: 'Invalid Otp'
+        //     })
+        // }
 
         // hash - secure passoword
         let hashedPassword = await bcrypt.hash(password, 10);
