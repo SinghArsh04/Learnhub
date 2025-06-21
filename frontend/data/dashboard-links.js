@@ -42,4 +42,18 @@ export const sidebarLinks = [
     type: ACCOUNT_TYPE.STUDENT,
     icon: "VscHistory",
   },
+  {
+    id: 7,
+    name: "Manage Users",
+    path: "/dashboard/manage-users",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscOrganization",   // or any icon you like
+  },
+  {
+    id: 8,
+    name: "Manage Categories",
+    path: "/dashboard/manage-categories",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscListSelection",   // choose a fitting icon
+  },
 ];
