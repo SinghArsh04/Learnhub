@@ -27,10 +27,11 @@ import MyCourses from './components/core/Dashboard/MyCourses';
 import EditCourse from './components/core/Dashboard/EditCourse/EditCourse';
 import Instructor from './components/core/Dashboard/Instructor';
 import ManageUsers from "./components/core/Dashboard/ManageUsers/ManageUsers";  
-
+import ManageCategories from "./components/core/Dashboard/ManageCategories/ManageCategories";
 import Cart from "./components/core/Dashboard/Cart/Cart";
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import AddCourse from "./components/core/Dashboard/AddCourse/AddCourse";
+import AddCategory from "./components/core/Dashboard/AddCategory/AddCategory";
 
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from './components/core/ViewCourse/VideoDetails';
@@ -170,9 +171,8 @@ function App() {
           {user?.accountType === ACCOUNT_TYPE.ADMIN && (
             <>
               <Route path="/dashboard/manage-users" element={<ManageUsers />} />
-              <Route path="dashboard/add-course" element={<AddCourse />} />
-              <Route path="dashboard/my-courses" element={<MyCourses />} />
-              <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
+              <Route path="dashboard/manage-categories" element={<ManageCategories />} />
+              <Route path="dashboard/add-categories" element={<AddCategory/>} />
             </>
           )}
         </Route>

@@ -56,4 +56,11 @@ export const sidebarLinks = [
     type: ACCOUNT_TYPE.ADMIN,
     icon: "VscListSelection",   // choose a fitting icon
   },
+  {
+    id: 9,
+    name: "Add categories",
+    path: "/dashboard/add-categories",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscAdd",   // choose a fitting icon
+  },
 ];

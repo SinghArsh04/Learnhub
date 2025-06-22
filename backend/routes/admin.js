@@ -15,3 +15,5 @@ router.get('/getAllUsers', getAllUsers)
 router.post('/createCategory', createCategory);
 router.get('/showAllCategories', showAllCategories);
 router.post("/getCategoryPageDetails", getCategoryPageDetails)
+
+module.exports = router;
