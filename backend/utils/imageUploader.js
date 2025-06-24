@@ -1,20 +1,21 @@
 const cloudinary = require('cloudinary').v2;
-
+require('dotenv').config();
 exports.uploadImageToCloudinary = async (file, folder, height, quality) => {
-    try {
-        const options = { folder };
-        if (height) options.height = height;
-        if (quality) options.quality = quality;
+  try {
+    const options = { folder };
+    if (height) options.height = height;
+    if (quality) options.quality = quality;
+    options.resource_type = 'auto';
 
-        // options.resourse_type = 'auto';
-        options.resource_type = 'auto';
-        return await cloudinary.uploader.upload(file.tempFilePath, options);
-    }
-    catch (error) {
-        console.log("Error while uploading image");
-        console.log(error);
-    }
-}
+    return await cloudinary.uploader.upload(file.tempFilePath, options);
+  } catch (error) {
+    console.log("❌ Error while uploading image to Cloudinary:");
+    console.log(error);
+    return null; // ✅ safe fallback
+    // OR: throw error; // if you want to handle it at a higher level
+  }
+};
+
 
 
 
