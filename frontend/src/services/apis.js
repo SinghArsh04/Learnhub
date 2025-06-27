@@ -72,4 +72,7 @@ export const settingsEndpoints = {
 
 export const adminAPIs = {
   GET_ALL_USERS_API: BASE_URL + "/admin/getAllUsers",
+  GET_USER_BY_ID_API: BASE_URL + "/admin/getUserById/:id",
+  DELETE_USER_API: BASE_URL + "/admin/deleteUser/:id",
 }
+

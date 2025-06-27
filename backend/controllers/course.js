@@ -458,6 +458,6 @@ exports.deleteCourse = async (req, res) => {
     }
 }
 
-
+// exports.getCatego
 
 

@@ -32,6 +32,10 @@ import Cart from "./components/core/Dashboard/Cart/Cart";
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import AddCourse from "./components/core/Dashboard/AddCourse/AddCourse";
 import AddCategory from "./components/core/Dashboard/AddCategory/AddCategory";
+import ViewDetails from "./components/core/Dashboard/ManageUsers/ViewDetails";
+
+
+
 
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from './components/core/ViewCourse/VideoDetails';
@@ -171,6 +175,7 @@ function App() {
           {user?.accountType === ACCOUNT_TYPE.ADMIN && (
             <>
               <Route path="/dashboard/manage-users" element={<ManageUsers />} />
+              <Route path="/dashboard/manage-users/:userId" element={<ViewDetails />} />
               <Route path="dashboard/manage-categories" element={<ManageCategories />} />
               <Route path="dashboard/add-categories" element={<AddCategory/>} />
             </>

@@ -11,6 +11,12 @@ require('dotenv').config();
 const { connectDB } = require('./config/database');
 const { cloudinaryConnect } = require('./config/cloudinary');
 
+// app.use((req, res, next) => {
+//   console.log(new Date().toISOString(), req.method, req.originalUrl);
+//   next();
+// });
+
+
 // routes
 const userRoutes = require('./routes/user');
 const profileRoutes = require('./routes/profile');
