@@ -22,6 +22,7 @@ const {
     createCategory,
     showAllCategories,
     getCategoryPageDetails,
+    categoryDetailsbyId
 } = require('../controllers/category');
 
 
@@ -104,7 +105,7 @@ router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
 router.post('/createCategory', auth, isAdmin, createCategory);
 router.get('/showAllCategories', showAllCategories);
 router.get("/getCategoryPageDetails", getCategoryPageDetails)
-
+router.get("/getCategoryDetailsbyId/:id", categoryDetailsbyId)
 
 
 

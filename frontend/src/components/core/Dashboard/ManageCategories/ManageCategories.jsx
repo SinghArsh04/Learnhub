@@ -1,10 +1,12 @@
 // src/components/core/Dashboard/ManageCategories/ManageCategories.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-import { adminAPIs } from "../../../../services/apis";
+import { useNavigate } from "react-router-dom";
+// Rename import to avoid shadowing state variable
+import { categories as categoryAPIs } from "../../../../services/apis";
 
 export default function ManageCategories() {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,8 +14,12 @@ export default function ManageCategories() {
     window.scrollTo(0, 0);
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(adminAPIs.GET_ALL_CATEGORIES_API);
-        setCategories(Array.isArray(response.data) ? response.data : []);
+        const response = await axios.get(categoryAPIs.CATEGORIES_API);
+        // API returns { data: [...], success, message }
+        const categoryList = Array.isArray(response.data.data)
+          ? response.data.data
+          : [];
+        setCategories(categoryList);
       } catch (err) {
         console.error("Error fetching categories:", err);
       } finally {
@@ -25,11 +31,12 @@ export default function ManageCategories() {
   }, []);
 
   const handleViewDetails = (categoryId) => {
-    console.log("View details for category:", categoryId);
+    navigate(`/dashboard/manage-categories/${categoryId}`);
   };
 
   const handleRemoveCategory = async (categoryId) => {
     console.log("Remove category:", categoryId);
+    // TODO: call DELETE endpoint and update state
   };
 
   const handleAddCategory = () => {

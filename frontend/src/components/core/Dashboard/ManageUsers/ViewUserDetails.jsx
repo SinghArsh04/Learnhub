@@ -6,7 +6,7 @@ import axios from "axios";
 import { formattedDate } from "../../../../utils/dateFormatter";
 import { adminAPIs } from "../../../../services/apis";
 
-export default function ViewDetails() {
+export default function ViewUserDetails() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
